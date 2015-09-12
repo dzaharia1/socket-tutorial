@@ -11,15 +11,13 @@ var localhost = 'http://localhost';
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.engine('hbs', handlebars({ extname: 'hbs', defaultLayout: 'layout.hbs' }));
-app.set('view engine', 'hbs')
 app.set('port', localport);
 
 app.host = app.set('host', process.env.HOST || localhost);
 app.port = app.set('port', process.env.PORT || localport);
 
 app.get('/', function(req, res) {
-	res.render('index', { data: 'test data' });
+	res.sendFile(app.get('views') + '/index.html');
 });
 
 var currHue = 30;
