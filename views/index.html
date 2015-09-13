@@ -4,11 +4,45 @@
 	<meta charset="UTF-8">
 	<title>colorshare</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/css/main.css">
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="/scripts/ui.js"></script>
 </head>
 <body>
-	<p class="hsl-indicator">lkajsdlkjasdf</p>
+<body>
+  <p class="color-indicator">This has all happened before. And it shall happen again.</p>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io();
+
+	  function readyFunction () {
+	    window.addEventListener('mousemove', function (event) {
+	      // convert the u and v values of the cursor to integer
+	      // percentages of screen real estate
+	      var payload = {
+	        x: ((event.clientX / window.innerWidth) * 100).toFixed(0),
+	        y: ((event.clientY / window.innerHeight) * 100).toFixed(0)
+	      };
+
+	      // we'll call the event 'mouse move'
+	      socket.emit('mouse move', payload);
+	    });
+
+	    window.addEventListener('click', function (event) {
+	      socket.emit('mouse click');
+	    });
+	  }
+
+		socket.on('new color', function (data) {
+			document.querySelector('body').style.backgroundColor = data;
+		  document.querySelector('.color-indicator').innerText = data;
+		});
+
+	  if (document.readyState != 'loading') {
+	  	readyFunction();
+	  }
+	  else {
+	  	document.addEventListener('DOMContentLoaded', readyFunction)
+	  }
+	</script>
+</body>
 </body>
 </html>
