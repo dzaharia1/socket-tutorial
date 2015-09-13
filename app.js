@@ -4,8 +4,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 
-var handlebars = require('express-handlebars');
-
 var localport = process.env.port || '3333';
 var localhost = 'http://localhost';
 
