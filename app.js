@@ -4,6 +4,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var localport = process.env.PORT || '3333';
+
 // set the 'views' and 'public' directories
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,6 +33,6 @@ io.on('connection', function (socket) {
 	});
 });
 
-http.listen('3333', function () {
-  console.log('app listening on 3333');
+http.listen(localport, function () {
+  console.log('app listening on ' + localport);
 });
